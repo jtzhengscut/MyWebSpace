@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jiatao Zheng - Academic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0066cc",
+                        secondary: "#333333"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Add dark mode styles */
+        .dark body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .dark .bg-white {
+            background-color: #2d2d2d;
+        }
+        .dark .text-gray-700 {
+            color: #d1d5db;
+        }
+        .dark .text-gray-600 {
+            color: #9ca3af;
+        }
+        .dark .border-gray-200 {
+            border-color: #374151;
+        }
+        .dark header {
+            background-color: #2d2d2d;
+        }
+        .dark .hover\:bg-gray-100:hover {
+            background-color: #374151;
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 min-h-screen">
+    <!-- Navigation Bar -->
+    <header class="border-b border-gray-200 py-6 px-6 md:px-12 sticky top-0 bg-white dark:bg-gray-800 z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-800">Jiatao Zheng</a>
+            <nav class="hidden md:flex space-x-10 justify-center flex-1">
+                <a href="#home" class="text-lg text-primary font-medium">Home</a>
+                <a href="#news" class="text-lg text-gray-700 hover:text-primary">News</a>
+                <a href="#projects" class="text-lg text-gray-700 hover:text-primary">Projects</a>
+                <a href="#experience" class="text-lg text-gray-700 hover:text-primary">Experience</a>
+                <a href="#publications" class="text-lg text-gray-700 hover:text-primary">Publications</a>
+                <a href="#awards" class="text-lg text-gray-700 hover:text-primary">Awards</a>
+                <a href="#acknowledgements" class="text-lg text-gray-700 hover:text-primary">Thanks</a>
+                <a href="#gallery" class="text-lg text-gray-700 hover:text-primary">Gallery</a>
+                <a href="#contact" class="text-lg text-gray-700 hover:text-primary">Contact</a>
+            </nav>
+            <div class="flex items-center space-x-6">
+                <button class="text-lg text-gray-700">
+                    <i class="fas fa-search"></i>
+                </button>
+                <!-- Theme Selector Dropdown -->
+                <div class="relative">
+                    <button class="text-lg text-gray-700 flex items-center" id="theme-button">
+                        <i class="fas fa-moon mr-2"></i>
+                        <span id="theme-text">Theme</span>
+                        <i class="fas fa-chevron-down ml-1"></i>
+                    </button>
+                    <div id="theme-dropdown" class="hidden absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-lg py-2 z-20">
+                        <button class="w-full px-4 py-2 text-left hover:bg-gray-100" data-theme="light">
+                            <i class="fas fa-sun mr-2"></i>Light
+                        </button>
+                        <button class="w-full px-4 py-2 text-left hover:bg-gray-100" data-theme="dark">
+                            <i class="fas fa-moon mr-2"></i>Dark
+                        </button>
+                        <button class="w-full px-4 py-2 text-left hover:bg-gray-100" data-theme="auto">
+                            <i class="fas fa-adjust mr-2"></i>Automatic
+                        </button>
+                    </div>
+                </div>
+                <button class="text-lg text-gray-700 language-toggle">
+                    中/En
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-12">
+        <!-- Home Section - 白色背景(默认) -->
+        <div class="bg-white">
+            <div class="container mx-auto px-6 md:px-12">
+                <section id="home">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <!-- Left Column - Profile -->
+                        <div class="md:w-1/3 flex flex-col items-center">
+                            <div class="w-64 h-64 rounded-full overflow-hidden mb-6">
+                                <img src="figures/photo.jpg" alt="Profile photo of Jiatao Zheng" class="w-full h-full object-cover">
+                            </div>
+                            <h1 class="text-3xl font-bold text-center mb-2">Jiatao Zheng 郑佳涛</h1>
+                            <p class="text-gray-600 text-center mb-4">Ph.D. Candidate in Control Science and Engineering, Focused on Medical Robotics</p>
+                            <a href="https://www.scut.edu.cn/new/" target="_blank" class="text-primary text-center hover:underline mb-6">South China University of Technology</a>
+                            
+                            <!-- Social Links -->
+                            <div class="flex space-x-4 mb-6">
+                                <a href="#contact" class="text-primary hover:text-blue-700 smooth-scroll">
+                                    <i class="fas fa-envelope text-2xl"></i>
+                                </a>
+                                <a href="https://scholar.google.com/" target="_blank" class="text-primary hover:text-blue-700">
+                                    <i class="fab fa-google text-2xl"></i>
+                                </a>
+                                <a href="https://github.com/jtzhengscut" target="_blank" class="text-primary hover:text-blue-700">
+                                    <i class="fab fa-github text-2xl"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/" target="_blank" class="text-primary hover:text-blue-700">
+                                    <i class="fab fa-linkedin text-2xl"></i>
+                                </a>
+                                <a href="/path_to_cv.pdf" target="_blank" class="text-primary hover:text-blue-700">
+                                    <span class="text-2xl font-bold">CV</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Column - Content -->
+                        <div class="md:w-2/3">
+                            <h2 class="text-4xl font-bold mb-6">About Me</h2>
+                            
+                            <p class="mb-4 text-lg">
+                                I'm a Ph.D. candidate in Control Science and Engineering at <a href="https://www.scut.edu.cn/new/" target="_blank" class="text-primary hover:underline">South China University of Technology</a>. I am passionate about exploring the fascinating intersection of medical robotics and magnetic navigation. Currently, I focus on developing innovative solutions for magnetically navigated robots and medical robotics simulation platforms, aiming to advance healthcare technology and improve patient care.
+                            </p>
+                            
+                            <p class="mb-4 text-lg">
+                                I believe in the power of interdisciplinary research and open collaboration. My approach combines rigorous engineering principles with creative problem-solving, always seeking to bridge the gap between theoretical advances and practical applications. I'm particularly excited about the potential of medical robotics to revolutionize minimally invasive procedures and enhance surgical precision.
+                            </p>
+                            
+                            <p class="mb-4 text-lg">
+                                Beyond research, I'm an advocate for clear scientific communication and knowledge sharing. I enjoy breaking down complex concepts into understandable pieces and believe that the best innovations come from collaborative environments. When I'm not in the lab, you can find me exploring new technologies, enjoying sci-fi movies, or dreaming up the next breakthrough in medical robotics. Feel free to reach out if you share similar interests or just want to discuss ideas - I'm always open to interesting conversations! 😊
+                            </p>
+                            
+                            <!-- Interests and Education Sections -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                                <div>
+                                    <h2 class="text-3xl font-bold mb-6">Interests</h2>
+                                    <div class="flex items-start mb-4">
+                                        <div class="bg-blue-100 text-blue-600 p-3 rounded mr-3 w-10 h-10 flex items-center justify-center">
+                                            <i class="fas fa-robot text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium">Medical Robotics</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start mb-4">
+                                        <div class="bg-blue-100 text-blue-600 p-3 rounded mr-3 w-10 h-10 flex items-center justify-center">
+                                            <i class="fas fa-magnet text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium">Magnetic Navigation</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h2 class="text-3xl font-bold mb-6">Education</h2>
+                                    <div class="flex items-start mb-4">
+                                        <div class="bg-blue-100 text-blue-600 p-3 rounded mr-3 w-10 h-10 flex items-center justify-center">
+                                            <i class="fas fa-graduation-cap text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium">Ph.D. in Control Science and Engineering, 2023 -</p>
+                                            <p class="text-gray-600">Shien-Ming Wu School of Intelligent Engineering, SCUT</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start mb-4">
+                                        <div class="bg-blue-100 text-blue-600 p-3 rounded mr-3 w-10 h-10 flex items-center justify-center">
+                                            <i class="fas fa-university text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium">B.E., 2019 - 2023</p>
+                                            <p class="text-gray-600">South China University of Technology</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- News Section - 灰色背景 -->
+        <div class="bg-gray-100">
+            <div class="container mx-auto px-6 md:px-12 py-16">
+                <section id="news">
+                    <h2 class="text-4xl font-bold mb-8">News</h2>
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <!-- Initial News List -->
+                        <ul class="space-y-4 text-lg" id="initialNewsList">
+                            <li>
+                                <span class="text-gray-600">2024.08.</span> Check our new open-source project for evolving agents in Research and development (R&D) <a href="#" class="text-primary hover:underline">here</a>; Online demo is available <a href="#" class="text-primary hover:underline">here</a>. More news from Microsoft Research will be expected!!!
+                            </li>
+                            <li>
+                                <span class="text-gray-600">2024.07.</span> I win the "Star of Tomorrow" award from Microsoft Research Asia, which is the <span class="font-medium">highest honor</span> for excellent internship.
+                            </li>
+                            <li>
+                                <span class="text-gray-600">2024.06.</span> I am invited to the summer workshop of CUHK business school. More discussion from different perspectives will be expected, especially in the field of recommendation system and data mining.
+                            </li>
+                            <li>
+                                <span class="text-gray-600">2024.06.</span> We release the dataset of <span class="font-medium">Idea Reviewing</span> for LLM agents. Check the details <a href="#" class="text-primary hover:underline">here</a> and in <a href="#projects" class="text-primary hover:underline">projects</a> section.
+                            </li>
+                            <li>
+                                <span class="text-gray-600">2024.06.</span> I was invited to visit Soochow University, Nanjing University of Science and Technology, and Tongji University for discussion about the development and future of intellectual property.
+                            </li>
+                            <li>
+                                <span class="text-gray-600">2024.06.</span> I was invited to the Fifth China Intellectual Property Innovation and Development Forum to give a speech, check the <a href="#gallery" class="text-primary hover:underline">gallery</a> for more details. Thank the great welcome from Prof. <a href="#" class="text-primary hover:underline">Jianwei Dang</a> and etc.
+                            </li>
+                            <li>
+                                <span class="text-gray-600">2024.05.</span> One paper abut multiview clustering by Grassmann manifold is accepted by <span class="font-medium">TNNLS</span>. Check the early access version <a href="#" class="text-primary hover:underline">here</a>.
+                            </li>
+                            <li>
+                                <span class="text-gray-600">2024.04.</span> Great pleasure to bridge and help <span class="font-medium">Tec-Do</span> become official advertising agency of <span class="font-medium">Microsoft</span>! Check the news <a href="#" class="text-primary hover:underline">here</a>.
+                            </li>
+                        </ul>
+
+                        <!-- Additional News List (Initially Hidden) -->
+                        <ul class="space-y-4 text-lg hidden" id="additionalNewsList">
+                            <li>
+                                <span class="text-gray-600">2023.12.</span> One paper about graph neural networks is accepted by <span class="font-medium">ICLR 2024</span>. Check the details <a href="#" class="text-primary hover:underline">here</a>.
+                            </li>
+                            <li>
+                                <span class="text-gray-600">2023.11.</span> Gave a talk about medical robotics at the International Conference on Robotics and Automation (ICRA) workshop.
+                            </li>
+                            <li>
+                                <span class="text-gray-600">2023.10.</span> Started collaboration with the Medical Robotics Lab at SCUT.
+                            </li>
+                        </ul>
+
+                        <!-- Show More/Less Button -->
+                        <div class="mt-6">
+                            <button class="flex items-center text-primary hover:text-blue-700" id="toggleNews">
+                                <i class="fas fa-chevron-right mr-2 transition-transform duration-200" id="toggleIcon"></i>
+                                <span id="toggleText">All News</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Projects Section - 白色背景 -->
+        <div class="bg-white">
+            <div class="container mx-auto px-6 md:px-12 py-16">
+                <section id="projects">
+                    <h2 class="text-4xl font-bold mb-8">Projects</h2>
+                    <!-- Filter Buttons -->
+                    <div class="flex justify-center space-x-4 mb-8">
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-md filter-btn active" data-filter="all">All</button>
+                        <button class="bg-gray-600 text-white px-4 py-2 rounded-md filter-btn" data-filter="awarded">Awarded</button>
+                        <button class="bg-gray-600 text-white px-4 py-2 rounded-md filter-btn" data-filter="interesting">Interesting</button>
+                    </div>
+                    
+                    <!-- Projects Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Stock Trading Project -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg project-item" data-category="interesting">
+                            <img src="figures/test.jpg" alt="Stock Trading Graph" class="w-full h-64 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold mb-2">Stock Trading</h3>
+                                <p class="text-gray-600 mb-4">A simple demo of using Time Series Prediction and Reinforcement Learning to trade stocks.</p>
+                            </div>
+                        </div>
+
+                        <!-- Byreader Project -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg project-item" data-category="awarded">
+                            <img src="figures/test.jpg" alt="Byreader Interface" class="w-full h-64 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold mb-2">Byreader-Next Generation Manga Reader</h3>
+                                <p class="text-gray-600 mb-4">A new convenient, consistent and customizable manga reader.</p>
+                                <div class="flex space-x-2">
+                                    <a href="pdfs/MagRobot_An Open Simulation Platform for Magnetically Navigated Robots_v5_unnamed.pdf" target="_blank" class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm hover:bg-blue-200 transition-colors">PDF</a>
+                                    <a href="https://github.com/MagRobotics/MagRobot" target="_blank" class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm hover:bg-blue-200 transition-colors">Code</a>
+                                    <a href="slides/MagRobot_An Open Simulation Platform for Magnetically Navigated Robots_v5_unnamed.pptx" class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm hover:bg-blue-200 transition-colors">Slides</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Idea King Project -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg project-item" data-category="awarded,interesting">
+                            <img src="figures/test.jpg" alt="Idea King Logo" class="w-full h-64 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold mb-2">Idea King</h3>
+                                <p class="text-gray-600 mb-4">Can LLM really understand creative ideas? Here is our attempt to improve its ability.</p>
+                                <div class="flex space-x-2">
+                                    <a href="#" class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm hover:bg-blue-200 transition-colors">Code</a>
+                                    <a href="#" class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm hover:bg-blue-200 transition-colors">Slides</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Multimodal Fitness Project -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg project-item" data-category="awarded">
+                            <img src="figures/test.jpg" alt="Fitness System" class="w-full h-64 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold mb-2">Multimodal Fitness Intelligent Guidance System</h3>
+                                <p class="text-gray-600 mb-4">Build a multimodal Fitness Intelligent Guidance System</p>
+                                <div class="flex space-x-2">
+                                    <a href="pdfs/fitness.pdf" target="_blank" class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm hover:bg-blue-200 transition-colors">PDF</a>
+                                    <a href="#" class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm hover:bg-blue-200 transition-colors">Slides</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        // Project filtering functionality
+                        const filterButtons = document.querySelectorAll('.filter-btn');
+                        const projectItems = document.querySelectorAll('.project-item');
+
+                        filterButtons.forEach(button => {
+                            button.addEventListener('click', () => {
+                                // Update active button style
+                                filterButtons.forEach(btn => {
+                                    btn.classList.remove('bg-blue-600');
+                                    btn.classList.add('bg-gray-600');
+                                });
+                                button.classList.remove('bg-gray-600');
+                                button.classList.add('bg-blue-600');
+
+                                const filterValue = button.getAttribute('data-filter');
+
+                                projectItems.forEach(item => {
+                                    const categories = item.getAttribute('data-category').split(',');
+                                    
+                                    if (filterValue === 'all' || categories.includes(filterValue)) {
+                                        item.style.display = '';
+                                        // Optional: Add fade-in animation
+                                        item.style.opacity = '0';
+                                        setTimeout(() => {
+                                            item.style.opacity = '1';
+                                        }, 50);
+                                    } else {
+                                        item.style.display = 'none';
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </section>
+            </div>
+        </div>
+
+        <!-- Experience Section - 灰色背景 -->
+        <div class="bg-gray-100">
+            <div class="container mx-auto px-6 md:px-12 py-16">
+                <section id="experience">
+                    <h2 class="text-4xl font-bold mb-8">Experience</h2>
+                    <div class="relative">
+                        <!-- Timeline Line -->
+                        <div class="absolute left-1/3 transform -translate-x-1/2 h-full w-0.5 bg-blue-600"></div>
+                        
+                        <!-- Experience Items -->
+                        <div class="space-y-12">
+                            <!-- CMU & UCLA -->
+                            <div class="relative flex items-center">
+                                <div class="absolute left-1/3 transform -translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full"></div>
+                                <div class="w-1/3 pr-8 text-right"></div>
+                                <div class="w-2/3 pl-8">
+                                    <div class="bg-white rounded-lg shadow-lg p-6">
+                                        <div class="flex items-center mb-4">
+                                            <img src="icon/scut.jpg" alt="CMU Logo" class="w-12 h-12 rounded-full mr-4">
+                                            <div>
+                                                <h3 class="text-xl font-bold">Investigate Over-reliance issues in LLM</h3>
+                                                <p class="text-gray-600">CMU & UCLA</p>
+                                                <p class="text-gray-500 text-sm">September 2024 - Present · Pittsburgh</p>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-700 mb-4">Working with Prof. Anthony Chen from UCLA and Prof. Sherry Wu from CMU. Investigate the over-reliance issues on LLM by designed large-scale user study, with quantization, statistics methods, customized webs and browser extension.</p>
+                                        <p class="text-gray-600">One paper submitted to <strong>CSCW 2025</strong>.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Microsoft Research Asia -->
+                            <div class="relative flex items-center">
+                                <div class="absolute left-1/3 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full"></div>
+                                <div class="w-1/3 pr-8 text-right"></div>
+                                <div class="w-2/3 pl-8">
+                                    <div class="bg-white rounded-lg shadow-lg p-6">
+                                        <div class="flex items-center mb-4">
+                                            <img src="icon/scut.jpg" alt="Microsoft Research Asia Logo" class="w-12 h-12 rounded-full mr-4">
+                                            <div>
+                                                <h3 class="text-xl font-bold">Automatous R&D LLM Agent and Quantitative Finance Strategy</h3>
+                                                <p class="text-gray-600">Microsoft Research Asia</p>
+                                                <p class="text-gray-500 text-sm">January 2024 - August 2024 · Hanover</p>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-700 mb-4">Working with Dr. Jian Bian, Microsoft Research Asia. Research on Automatic Research and Development (R&D) and Quantitative Finance Strategy. Imagine a world where the R&D process is fully automated, and the LLM can automatic generate analysis results of every proposed ideas and propose new ideas. Project we led is open-sourced in: Github/RD-Agent. I also won the highest honor "Star of Tomorrow" awarded by MSRA.</p>
+                                        <p class="text-gray-600">One paper accepted by <strong>ICLR 2024</strong> AGI Workshop.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dartmouth College -->
+                            <div class="relative flex items-center">
+                                <div class="absolute left-1/3 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full"></div>
+                                <div class="w-1/3 pr-8 text-right"></div>
+                                <div class="w-2/3 pl-8">
+                                    <div class="bg-white rounded-lg shadow-lg p-6">
+                                        <div class="flex items-center mb-4">
+                                            <img src="icon/scut.jpg" alt="Dartmouth College Logo" class="w-12 h-12 rounded-full mr-4">
+                                            <div>
+                                                <h3 class="text-xl font-bold">Explore Heterophily, Oversmoothing and Relations Modeling</h3>
+                                                <p class="text-gray-600">Dartmouth College</p>
+                                                <p class="text-gray-500 text-sm">December 2023 - October 2024 · Hanover</p>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-700 mb-4">Advised by Prof. Yujun Yan and Prof. Dawei Zhou. Explore the heterophily and oversmoothing in graph neural networks, developing principles for graph-based ML models that are both expressive and generalizable.</p>
+                                        <p class="text-gray-600">One paper will be submitted to <strong>KDD 2025</strong>.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Xi'an Jiaotong University -->
+                            <div class="relative flex items-center">
+                                <div class="absolute left-1/3 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full"></div>
+                                <div class="w-1/3 pr-8 text-right"></div>
+                                <div class="w-2/3 pl-8">
+                                    <div class="bg-white rounded-lg shadow-lg p-6">
+                                        <div class="flex items-center mb-4">
+                                            <img src="icon/scut.jpg" alt="Xi'an Jiaotong University Logo" class="w-12 h-12 rounded-full mr-4">
+                                            <div>
+                                                <h3 class="text-xl font-bold">Multi-relational Geometric Information Interaction Research Group</h3>
+                                                <p class="text-gray-600">Xi'an Jiaotong University</p>
+                                                <p class="text-gray-500 text-sm">April 2023 - December 2023 · Xi'an</p>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-700 mb-4">Advised by Prof. Danyang Wu. Research on the graph neural network, geometric representation learning and their applications for RNA, protein, and brain networks.</p>
+                                        <p class="text-gray-600">Two paper accepted by <strong>WWW 2024</strong>, two papers pending.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tec-Do -->
+                            <div class="relative flex items-center">
+                                <div class="absolute left-1/3 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full"></div>
+                                <div class="w-1/3 pr-8 text-right"></div>
+                                <div class="w-2/3 pl-8">
+                                    <div class="bg-white rounded-lg shadow-lg p-6">
+                                        <div class="flex items-center mb-4">
+                                            <img src="icon/scut.jpg" alt="Tec-Do Logo" class="w-12 h-12 rounded-full mr-4">
+                                            <div>
+                                                <h3 class="text-xl font-bold">Data Mining and Machine Learning Engineer</h3>
+                                                <p class="text-gray-600">Tec-Do</p>
+                                                <p class="text-gray-500 text-sm">September 2022 - January 2024 · Guangzhou</p>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-700 mb-4">Responsibilities for CTR/CVR prediction and Smart Bidding. <strong>Project of the Year awarded</strong>.</p>
+                                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                            <li>Build CTR (Click-through rate) predication model through GBDT and GNN for the Tec-Do Ads DSP platform, defeating 3rd party (Cusper) SaaS services. Achieved ROI 1.4x from 0.7x.</li>
+                                            <li>Use DCN implemented smart bidding module under constraint budget. 30% ROI improvement.</li>
+                                            <li>Apply negative pseudo partial labels to sampling negative samples for recall model on item-user bipartite graph.</li>
+                                            <li>Build workflow generating realistic picture for e-commerce based on diffusion model.</li>
+                                            <li>Two patent granted, two patents published, and two patents pending.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Featured Publications Section - 白色背景 -->
+        <div class="bg-white">
+            <div class="container mx-auto px-6 md:px-12 py-16">
+                <section id="publications">
+                    <h2 class="text-4xl font-bold mb-8">Publications</h2>
+                    <div class="space-y-8">
+                        <!-- Publication 1: Cross-View Approximation -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="md:w-1/3">
+                                    <img src="figures/test.jpg" alt="CAGM Diagram" class="w-full h-full object-cover">
+                                </div>
+                                <div class="md:w-2/3 p-6">
+                                    <div class="flex items-center mb-2">
+                                        <span class="text-gray-600">Jiatao Zheng 郑佳涛</span>
+                                    </div>
+                                    <p class="text-gray-500 text-sm mb-3">May, 2024 · In IEEE Transactions on Neural Networks and Learning Systems</p>
+                                    <h3 class="text-xl font-bold mb-3">Cross-View Approximation on Grassmann Manifold for Multiview Clustering</h3>
+                                    <p class="text-gray-600 mb-4">Propose a cross-view approximation on Grassman manifold (CAGM) model to address inconsistencies within multiview adjacency matrices, feature matrices, and cross-view combinations from the two sources.</p>
+                                    <div class="flex space-x-2">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">PDF</span>
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">DOI</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Publication 2: FinReport -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="md:w-1/3">
+                                    <img src="figures/test.jpg" alt="FinReport Architecture" class="w-full h-full object-cover">
+                                </div>
+                                <div class="md:w-2/3 p-6">
+                                    <div class="flex items-center mb-2">
+                                        <span class="text-gray-600">Jiatao Zheng 郑佳涛</span>
+                                    </div>
+                                    <p class="text-gray-500 text-sm mb-3">January, 2024 · In The Web Conference 2024</p>
+                                    <h3 class="text-xl font-bold mb-3">FinReport: Explainable Stock Earnings Forecasting via News Factor Analyzing Model</h3>
+                                    <p class="text-gray-600 mb-4">Propose an explainable stock earning framework via news factor analyzing model. Formalizing news into semantic graph and learn embedding of it as a more expressible factor. Stock earning foresting and explainable earning module are built via aggregating and utilizing news factor and numeric stock factor, achieving SOTA performance on A-stock dataset. A detailed report will be generated with the power of LLM.</p>
+                                    <div class="flex space-x-2">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">PDF</span>
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">Code</span>
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">DOI</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Publication 3: Simple Multigraph -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="md:w-1/3">
+                                    <img src="figures/test.jpg" alt="Multigraph Architecture" class="w-full h-full object-cover">
+                                </div>
+                                <div class="md:w-2/3 p-6">
+                                    <div class="flex items-center mb-2">
+                                        <span class="text-gray-600">Jiatao Zheng 郑佳涛</span>
+                                    </div>
+                                    <p class="text-gray-500 text-sm mb-3">January, 2024 · In The Web Conference 2024</p>
+                                    <h3 class="text-xl font-bold mb-3">Simple Multigraph Convolution Networks</h3>
+                                    <p class="text-gray-600 mb-4">Propose a simple but effective multigraph convolution networks, focusing on exacting edge-level and subgraph-level credible matrix to help cross-view interaction.</p>
+                                    <div class="flex space-x-2">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">PDF</span>
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">Code</span>
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">Slides</span>
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">DOI</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Publication 4: NP2L -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                            <div class="flex flex-col md:flex-row">
+                                <div class="md:w-1/3">
+                                    <img src="figures/test.jpg" alt="NP2L Architecture" class="w-full h-full object-cover">
+                                </div>
+                                <div class="md:w-2/3 p-6">
+                                    <div class="flex items-center mb-2">
+                                        <span class="text-gray-600">Jiatao Zheng 郑佳涛</span>
+                                    </div>
+                                    <p class="text-gray-500 text-sm mb-3">October, 2023</p>
+                                    <h3 class="text-xl font-bold mb-3">NP2L: Negative Pseudo Partial Labels Extraction for Graph Neural Networks</h3>
+                                    <p class="text-gray-600 mb-4">Propose an unsupervised framework to exact negative relationship between nodes, based on pseudo partial labels, and augment the original graph into a signed graph. Then signed graph neural networks are used for learning node embeddings, achieving state-of-the-art performance on both link prediction and node classification tasks.</p>
+                                    <div class="flex space-x-2">
+                                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">PDF</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Awards Section - 灰色背景 -->
+        <div class="bg-gray-100">
+            <div class="container mx-auto px-6 md:px-12 py-16">
+                <section id="awards">
+                    <h2 class="text-4xl font-bold mb-8">Awards</h2>
+                    <div class="space-y-6">
+                        <!-- Stars of Tomorrow -->
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <div class="flex flex-col">
+                                <h3 class="text-xl font-bold mb-1">Stars of Tomorrow</h3>
+                                <div class="flex items-center text-gray-600 mb-2">
+                                    <span>Microsoft Research Asia</span>
+                                    <span class="mx-2">·</span>
+                                    <span>Jul 2024</span>
+                                </div>
+                                <p class="text-gray-700">Highest honor for excellent internship</p>
+                            </div>
+                        </div>
+
+                        <!-- TaiHu Innovation Prize -->
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <div class="flex flex-col">
+                                <h3 class="text-xl font-bold mb-1">TaiHu Innovation Prize</h3>
+                                <div class="flex items-center text-gray-600 mb-2">
+                                    <span>Wuxi governments</span>
+                                    <span class="mx-2">·</span>
+                                    <span>Dec 2022</span>
+                                </div>
+                                <p class="text-gray-700">Highest scholarship awarded by the Wuxi governments</p>
+                            </div>
+                        </div>
+
+                        <!-- National Scholarship -->
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <div class="flex flex-col">
+                                <h3 class="text-xl font-bold mb-1">National Scholarship</h3>
+                                <div class="flex items-center text-gray-600 mb-2">
+                                    <span>China Ministry of Education</span>
+                                    <span class="mx-2">·</span>
+                                    <span>Sep 2022</span>
+                                </div>
+                                <p class="text-gray-700">Highest scholarship awarded by the Chinese governments</p>
+                            </div>
+                        </div>
+
+                        <!-- First Price Scholarship (SCUT) -->
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <div class="flex flex-col">
+                                <h3 class="text-xl font-bold mb-1">First Price Scholarship</h3>
+                                <div class="flex items-center text-gray-600 mb-2">
+                                    <span>South China University of Technology</span>
+                                    <span class="mx-2">·</span>
+                                    <span>Sep 2022</span>
+                                </div>
+                                <p class="text-gray-700">Highest scholarship awarded by the South China University of Technology</p>
+                            </div>
+                        </div>
+
+                        <!-- First Price Scholarship (EXCELLENCE GROUP) -->
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <div class="flex flex-col">
+                                <h3 class="text-xl font-bold mb-1">First Price Scholarship</h3>
+                                <div class="flex items-center text-gray-600 mb-2">
+                                    <span>EXCELLENCE GROUP</span>
+                                    <span class="mx-2">·</span>
+                                    <span>Sep 2022</span>
+                                </div>
+                                <p class="text-gray-700">Highest scholarship awarded by the EXCELLENCE GROUP</p>
+                            </div>
+                        </div>
+
+                        <!-- Intel Cup -->
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <div class="flex flex-col">
+                                <h3 class="text-xl font-bold mb-1">Intel Cup Undergraduate Electronic Design Contest</h3>
+                                <div class="flex items-center text-gray-600 mb-2">
+                                    <span>Intel</span>
+                                    <span class="mx-2">·</span>
+                                    <span>Apr 2022 - Aug 2022</span>
+                                </div>
+                                <p class="text-gray-700">Second Prize in the Intel Cup Undergraduate Electronic Design Contest by the project of Multimodal Fitness Intelligent Guidance System</p>
+                            </div>
+                        </div>
+
+                        <!-- Star Volunteer -->
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <div class="flex flex-col">
+                                <h3 class="text-xl font-bold mb-1">Star Volunteer</h3>
+                                <div class="flex items-center text-gray-600 mb-2">
+                                    <span>SCUT Youth Volunteer Guidance Center</span>
+                                    <span class="mx-2">·</span>
+                                    <span>Sep 2021 - May 2023</span>
+                                </div>
+                                <p class="text-gray-700">Volunteer title awarded by SCUT Youth Volunteer Guidance Center</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Acknowledgements Section - 白色背景 -->
+        <div class="bg-white">
+            <div class="container mx-auto px-6 md:px-12 py-16">
+                <section id="acknowledgements">
+                    <h2 class="text-4xl font-bold mb-8">Acknowledgements</h2>
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <p class="text-gray-700 text-lg mb-6">
+                            I have been fortunate to work with many talented and dedicated individuals who have generously shared their time and expertise with me. I am grateful for their support and encouragement.
+                        </p>
+
+                        <ul class="space-y-4 text-gray-700">
+                            <li>Qinyi Zhou, Chang Liu <span class="text-gray-500">· @Tsinghua University</span></li>
+                            <li>Yuxuan Ren, Haoyu Chi <span class="text-gray-500">· @USTC</span></li>
+                            <li>Prof. <a href="#" class="text-primary hover:underline">Xiang 'Anthony' Chen</a> <span class="text-gray-500">· @UCLA</span></li>
+                            <li>Prof. <a href="#" class="text-primary hover:underline">Sherry Wu</a> <span class="text-gray-500">· @CMU</span></li>
+                            <li>Prof. <a href="#" class="text-primary hover:underline">Danyang Wu</a> <span class="text-gray-500">· @Xi'an Jiaotong University</span></li>
+                            <li>Prof. <a href="#" class="text-primary hover:underline">Yujun Yan</a> <span class="text-gray-500">· @Dartmouth College</span></li>
+                            <li>Prof. <a href="#" class="text-primary hover:underline">Jin Xu</a>, <a href="#" class="text-primary hover:underline">Lin Shu</a>, <a href="#" class="text-primary hover:underline">Shidang Xu</a>, <a href="#" class="text-primary hover:underline">Yahui Jia</a> <span class="text-gray-500">· @South China University of Technology</span></li>
+                            <li>Dr. Guanyong Lu, Dr. Pinde Chen, <a href="#" class="text-primary hover:underline">Guofeng Huang</a>, <a href="#" class="text-primary hover:underline">Shuhao Li</a> <span class="text-gray-500">· @Tec-Do</span></li>
+                            <li><a href="#" class="text-primary hover:underline">Xiao Yang</a>, <a href="#" class="text-primary hover:underline">Xu Yang</a>, <a href="#" class="text-primary hover:underline">Weiqing Liu</a>, <a href="#" class="text-primary hover:underline">Jiang Bian</a> <span class="text-gray-500">· @Microsoft</span></li>
+                            <li>Prof. <a href="#" class="text-primary hover:underline">Dawei Zhou</a> <span class="text-gray-500">· @Virginia Tech</span></li>
+                            <li><a href="#" class="text-primary hover:underline">Zeqi Ye</a> <span class="text-gray-500">· @NanKai University</span></li>
+                        </ul>
+
+                        <p class="text-gray-700 text-lg mt-6">
+                            I also thanks friends in anime club, who always bring me joy and mental support.
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Gallery Section - 灰色背景 -->
+        <div class="bg-gray-100">
+            <div class="container mx-auto px-6 md:px-12 py-16">
+                <section id="gallery">
+                    <h2 class="text-4xl font-bold mb-4">Gallery</h2>
+                    <p class="text-gray-600 text-lg mb-8">Enjoy both research and life</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Row 1 -->
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="figures/test.jpg" alt="Group photo" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="figures/test.jpg" alt="Group photo with ping pong table" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="figures/test.jpg" alt="Conference group photo" class="w-full h-64 object-cover">
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="figures/test.jpg" alt="Fun moment with funny glasses" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="figures/test.jpg" alt="Outdoor group photo" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="figures/test.jpg" alt="Conference presentation" class="w-full h-64 object-cover">
+                        </div>
+
+                        <!-- Row 3 -->
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="figures/test.jpg" alt="Lab group photo" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="figures/test.jpg" alt="Poster presentation" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="figures/test.jpg" alt="Award ceremony" class="w-full h-64 object-cover">
+                        </div>
+
+                        <!-- Row 4 -->
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="figures/test.jpg" alt="Group photo with flowers" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="figures/test.jpg" alt="Another group photo" class="w-full h-64 object-cover">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Contact Section - 白色背景 -->
+        <div class="bg-white">
+            <div class="container mx-auto px-6 md:px-12 py-16">
+                <section id="contact">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <!-- Left Column - Title -->
+                        <div class="md:w-1/4">
+                            <h2 class="text-4xl font-bold">Contact</h2>
+                        </div>
+                        
+                        <!-- Right Column - Content -->
+                        <div class="md:w-3/4">
+                            <p class="text-gray-700 text-lg mb-8">
+                                Reach me by email if you have any questions.
+                            </p>
+
+                            <div class="space-y-6">
+                                <!-- Email -->
+                                <div class="flex items-center gap-4">
+                                    <div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-lg">
+                                        <i class="fas fa-envelope text-gray-700"></i>
+                                    </div>
+                                    <a href="mailto:frinkleko@gmail.com" class="text-primary hover:underline">
+                                        frinkleko@gmail.com
+                                    </a>
+                                </div>
+
+                                <!-- Address -->
+                                <div class="flex items-center gap-4">
+                                    <div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-lg">
+                                        <i class="fas fa-map-marker-alt text-gray-700"></i>
+                                    </div>
+                                    <span class="text-gray-700">
+                                        777 Xingye Avenue East, Guangzhou, 511442
+                                    </span>
+                                </div>
+
+                                <!-- Calendar -->
+                                <div class="flex items-center gap-4">
+                                    <div class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded-lg">
+                                        <i class="fas fa-calendar-check text-gray-700"></i>
+                                    </div>
+                                    <a href="#" class="text-primary hover:underline">
+                                        Book an appointment
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-8 mt-16">
+        <div class="container mx-auto px-6 md:px-12">
+            <p class="text-center text-gray-600">© 2025 Jiatao Zheng. This work is licensed under CC BY NC ND 4.0</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme functionality
+        const themeButton = document.getElementById('theme-button');
+        const themeDropdown = document.getElementById('theme-dropdown');
+        const themeText = document.getElementById('theme-text');
+        let userTheme = localStorage.getItem('theme') || 'auto';
+
+        // Theme toggle functionality
+        function setTheme(theme) {
+            if (theme === 'auto') {
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } else if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            
+            localStorage.setItem('theme', theme);
+            themeText.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
+        }
+
+        // Initialize theme
+        setTheme(userTheme);
+
+        // Toggle dropdown
+        themeButton.addEventListener('click', () => {
+            themeDropdown.classList.toggle('hidden');
+        });
+
+        // Handle theme selection
+        document.querySelectorAll('#theme-dropdown button').forEach(button => {
+            button.addEventListener('click', () => {
+                const theme = button.dataset.theme;
+                setTheme(theme);
+                themeDropdown.classList.add('hidden');
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!themeButton.contains(e.target)) {
+                themeDropdown.classList.add('hidden');
+            }
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (userTheme === 'auto') {
+                setTheme('auto');
+            }
+        });
+
+        // Smooth scroll for all links with smooth-scroll class
+        document.querySelectorAll('.smooth-scroll').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll spy functionality
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('nav a');
+
+        function onScroll() {
+            const scrollPos = window.scrollY + 100; // offset for better trigger position
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-primary', 'font-medium');
+                        link.classList.add('text-gray-700');
+                        
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.remove('text-gray-700');
+                            link.classList.add('text-primary', 'font-medium');
+                        }
+                    });
+                }
+            });
+        }
+
+        // Add scroll event listener
+        window.addEventListener('scroll', onScroll);
+        
+        // Call onScroll on page load to set initial state
+        onScroll();
+
+        // News toggle functionality
+        const toggleNews = document.getElementById('toggleNews');
+        const additionalNewsList = document.getElementById('additionalNewsList');
+        const toggleIcon = document.getElementById('toggleIcon');
+        const toggleText = document.getElementById('toggleText');
+        let isExpanded = false;
+
+        toggleNews.addEventListener('click', () => {
+            isExpanded = !isExpanded;
+            additionalNewsList.classList.toggle('hidden');
+            toggleIcon.style.transform = isExpanded ? 'rotate(90deg)' : '';
+            toggleText.textContent = isExpanded ? 'Show Less' : 'All News';
+        });
+    </script>
+</body>
+</html> 
