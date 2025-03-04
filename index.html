@@ -26,6 +26,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
         /* Add dark mode styles */
         .dark body {
@@ -33,7 +34,10 @@
             color: #ffffff;
         }
         .dark .bg-white {
-            background-color: #2d2d2d;
+            background-color: #2d2d2d !important;
+        }
+        .dark .bg-gray-100 {
+            background-color: #1a1a1a !important;
         }
         .dark .text-gray-700 {
             color: #d1d5db;
@@ -50,6 +54,46 @@
         .dark .hover\:bg-gray-100:hover {
             background-color: #374151;
         }
+        .dark .bg-blue-100 {
+            background-color: #1e3a8a;
+        }
+        .dark .text-blue-600 {
+            color: #60a5fa;
+        }
+        .dark .bg-gray-100 {
+            background-color: #1a1a1a;
+        }
+        /* Add smooth scroll styles */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+        section[id] {
+            scroll-margin-top: 100px;
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0066cc;
+            transition: width 0.3s ease;
+            transform-origin: left;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        .dark .nav-link::after {
+            background-color: #60a5fa;
+        }
     </style>
 </head>
 <body class="bg-white dark:bg-gray-900 min-h-screen">
@@ -58,20 +102,38 @@
         <div class="container mx-auto flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-gray-800">Jiatao Zheng</a>
             <nav class="hidden md:flex space-x-10 justify-center flex-1">
-                <a href="#home" class="text-lg text-primary font-medium">Home</a>
-                <a href="#news" class="text-lg text-gray-700 hover:text-primary">News</a>
-                <a href="#projects" class="text-lg text-gray-700 hover:text-primary">Projects</a>
-                <a href="#experience" class="text-lg text-gray-700 hover:text-primary">Experience</a>
-                <a href="#publications" class="text-lg text-gray-700 hover:text-primary">Publications</a>
-                <a href="#awards" class="text-lg text-gray-700 hover:text-primary">Awards</a>
-                <a href="#acknowledgements" class="text-lg text-gray-700 hover:text-primary">Thanks</a>
-                <a href="#gallery" class="text-lg text-gray-700 hover:text-primary">Gallery</a>
-                <a href="#contact" class="text-lg text-gray-700 hover:text-primary">Contact</a>
+                <a href="#home" class="text-lg text-primary font-medium nav-link">Home</a>
+                <a href="#news" class="text-lg text-gray-700 hover:text-primary nav-link">News</a>
+                <a href="#projects" class="text-lg text-gray-700 hover:text-primary nav-link">Projects</a>
+                <a href="#experience" class="text-lg text-gray-700 hover:text-primary nav-link">Experience</a>
+                <a href="#publications" class="text-lg text-gray-700 hover:text-primary nav-link">Publications</a>
+                <a href="#awards" class="text-lg text-gray-700 hover:text-primary nav-link">Awards</a>
+                <a href="#acknowledgements" class="text-lg text-gray-700 hover:text-primary nav-link">Thanks</a>
+                <a href="#gallery" class="text-lg text-gray-700 hover:text-primary nav-link">Gallery</a>
+                <a href="#contact" class="text-lg text-gray-700 hover:text-primary nav-link">Contact</a>
             </nav>
             <div class="flex items-center space-x-6">
-                <button class="text-lg text-gray-700">
+                <!-- Search Button and Modal -->
+                <button class="text-lg text-gray-700" id="search-button">
                     <i class="fas fa-search"></i>
                 </button>
+                <div id="search-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+                    <div class="container mx-auto px-4 pt-20">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-auto">
+                            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                                <div class="flex items-center">
+                                    <input type="text" id="search-input" class="w-full px-4 py-2 text-lg border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white" placeholder="搜索...">
+                                    <button id="close-search" class="ml-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="search-results" class="p-4 max-h-[calc(100vh-200px)] overflow-y-auto">
+                                <!-- 搜索结果将在这里动态显示 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Theme Selector Dropdown -->
                 <div class="relative">
                     <button class="text-lg text-gray-700 flex items-center" id="theme-button">
@@ -91,9 +153,6 @@
                         </button>
                     </div>
                 </div>
-                <button class="text-lg text-gray-700 language-toggle">
-                    中/En
-                </button>
             </div>
         </div>
     </header>
@@ -827,6 +886,112 @@
     </footer>
 
     <script>
+        // 搜索功能
+        const searchButton = document.getElementById('search-button');
+        const searchModal = document.getElementById('search-modal');
+        const closeSearch = document.getElementById('close-search');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        // 打开搜索框
+        searchButton.addEventListener('click', () => {
+            searchModal.classList.remove('hidden');
+            searchInput.focus();
+        });
+
+        // 关闭搜索框
+        closeSearch.addEventListener('click', () => {
+            searchModal.classList.add('hidden');
+            searchInput.value = '';
+            searchResults.innerHTML = '';
+        });
+
+        // 点击模态框外部关闭
+        searchModal.addEventListener('click', (e) => {
+            if (e.target === searchModal) {
+                searchModal.classList.add('hidden');
+                searchInput.value = '';
+                searchResults.innerHTML = '';
+            }
+        });
+
+        // 搜索功能实现
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            if (searchTerm.length < 2) {
+                searchResults.innerHTML = '';
+                return;
+            }
+
+            // 获取所有可搜索的内容
+            const sections = document.querySelectorAll('section');
+            let results = [];
+
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    const sectionId = section.id;
+                    const sectionTitle = section.querySelector('h2')?.textContent || sectionId;
+                    const matches = text.match(new RegExp(searchTerm, 'gi'));
+                    const matchCount = matches ? matches.length : 0;
+                    
+                    results.push({
+                        id: sectionId,
+                        title: sectionTitle,
+                        text: text.substring(0, 200) + '...',
+                        matchCount: matchCount
+                    });
+                }
+            });
+
+            // 按匹配次数排序
+            results.sort((a, b) => b.matchCount - a.matchCount);
+
+            // 显示搜索结果
+            if (results.length > 0) {
+                searchResults.innerHTML = results.map(result => `
+                    <div class="mb-4 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer" onclick="scrollToSection('${result.id}')">
+                        <h3 class="text-lg font-semibold text-primary dark:text-blue-400">${result.title}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mt-2">${result.text}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">匹配次数: ${result.matchCount}</p>
+                    </div>
+                `).join('');
+            } else {
+                searchResults.innerHTML = '<p class="text-gray-500 dark:text-gray-400 text-center">未找到相关结果</p>';
+            }
+        });
+
+        // 滚动到指定部分
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const headerOffset = 100;
+                const elementPosition = section.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+
+                // 更新导航链接状态
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active', 'text-primary', 'font-medium');
+                    link.classList.add('text-gray-700');
+                });
+                const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active', 'text-primary', 'font-medium');
+                    activeLink.classList.remove('text-gray-700');
+                }
+
+                // 关闭搜索框
+                searchModal.classList.add('hidden');
+                searchInput.value = '';
+                searchResults.innerHTML = '';
+            }
+        }
+
         // Theme functionality
         const themeButton = document.getElementById('theme-button');
         const themeDropdown = document.getElementById('theme-dropdown');
@@ -882,46 +1047,84 @@
             }
         });
 
-        // Smooth scroll for all links with smooth-scroll class
-        document.querySelectorAll('.smooth-scroll').forEach(anchor => {
+        // Enhanced smooth scroll functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
                 const targetElement = document.getElementById(targetId);
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
+                
+                if (targetElement) {
+                    const headerOffset = 100;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Update active state
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active', 'text-primary', 'font-medium');
+                        link.classList.add('text-gray-700');
+                    });
+                    this.classList.add('active', 'text-primary', 'font-medium');
+                    this.classList.remove('text-gray-700');
+                }
             });
         });
 
-        // Scroll spy functionality
+        // Enhanced scroll spy functionality
         const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('nav a');
+        const navLinks = document.querySelectorAll('.nav-link');
 
         function onScroll() {
-            const scrollPos = window.scrollY + 100; // offset for better trigger position
+            const scrollPos = window.scrollY + 100;
+            let currentSection = null;
+            let minDistance = Infinity;
 
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.offsetHeight;
                 const sectionId = section.getAttribute('id');
                 
-                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                    navLinks.forEach(link => {
-                        link.classList.remove('text-primary', 'font-medium');
-                        link.classList.add('text-gray-700');
-                        
-                        if (link.getAttribute('href') === `#${sectionId}`) {
-                            link.classList.remove('text-gray-700');
-                            link.classList.add('text-primary', 'font-medium');
-                        }
-                    });
+                // 计算当前滚动位置到section顶部的距离
+                const distance = Math.abs(scrollPos - sectionTop);
+                
+                // 如果距离更小，更新当前section
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    currentSection = sectionId;
                 }
             });
+
+            // 更新导航链接状态
+            if (currentSection) {
+                navLinks.forEach(link => {
+                    const linkId = link.getAttribute('href').substring(1);
+                    if (linkId === currentSection) {
+                        link.classList.remove('text-gray-700');
+                        link.classList.add('active', 'text-primary', 'font-medium');
+                    } else {
+                        link.classList.remove('active', 'text-primary', 'font-medium');
+                        link.classList.add('text-gray-700');
+                    }
+                });
+            }
         }
 
-        // Add scroll event listener
-        window.addEventListener('scroll', onScroll);
+        // Add scroll event listener with throttling
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    onScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
         
         // Call onScroll on page load to set initial state
         onScroll();
@@ -941,4 +1144,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
