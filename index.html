@@ -114,22 +114,33 @@
             </nav>
             <div class="flex items-center space-x-6">
                 <!-- Search Button and Modal -->
-                <button class="text-lg text-gray-700" id="search-button">
+                <button class="text-lg text-gray-700 hover:text-primary transition-colors" id="search-button">
                     <i class="fas fa-search"></i>
                 </button>
-                <div id="search-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+                <div id="search-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 backdrop-blur-sm">
                     <div class="container mx-auto px-4 pt-20">
-                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-auto">
-                            <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-3xl mx-auto transform transition-all duration-300 scale-95 opacity-0" id="search-modal-content">
+                            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
                                 <div class="flex items-center">
-                                    <input type="text" id="search-input" class="w-full px-4 py-2 text-lg border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white" placeholder="搜索...">
-                                    <button id="close-search" class="ml-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                                        <i class="fas fa-times"></i>
+                                    <div class="relative flex-1">
+                                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                        <input type="text" id="search-input" class="w-full pl-12 pr-4 py-3 text-lg border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200" placeholder="搜索网站内容...">
+                                    </div>
+                                    <button id="close-search" class="ml-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
+                                        <i class="fas fa-times text-xl"></i>
                                     </button>
                                 </div>
                             </div>
-                            <div id="search-results" class="p-4 max-h-[calc(100vh-200px)] overflow-y-auto">
-                                <!-- 搜索结果将在这里动态显示 -->
+                            <div class="p-4">
+                                <!-- Search History -->
+                                <div id="search-history" class="mb-4">
+                                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">搜索历史</h3>
+                                    <div class="flex flex-wrap gap-2" id="history-tags"></div>
+                                </div>
+                                <!-- Search Results -->
+                                <div id="search-results" class="max-h-[calc(100vh-300px)] overflow-y-auto space-y-4">
+                                    <!-- 搜索结果将在这里动态显示 -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -895,40 +906,88 @@
         // 搜索功能
         const searchButton = document.getElementById('search-button');
         const searchModal = document.getElementById('search-modal');
+        const searchModalContent = document.getElementById('search-modal-content');
         const closeSearch = document.getElementById('close-search');
         const searchInput = document.getElementById('search-input');
         const searchResults = document.getElementById('search-results');
+        const historyTags = document.getElementById('history-tags');
+
+        // 搜索历史
+        let searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+        const MAX_HISTORY = 5;
+
+        // 更新搜索历史
+        function updateSearchHistory(term) {
+            if (!term) return;
+            searchHistory = [term, ...searchHistory.filter(h => h !== term)].slice(0, MAX_HISTORY);
+            localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+            renderSearchHistory();
+        }
+
+        // 渲染搜索历史
+        function renderSearchHistory() {
+            historyTags.innerHTML = searchHistory.map(term => `
+                <button class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors" onclick="setSearchTerm('${term}')">
+                    ${term}
+                </button>
+            `).join('');
+        }
+
+        // 设置搜索词
+        function setSearchTerm(term) {
+            searchInput.value = term;
+            searchInput.focus();
+            performSearch(term);
+        }
 
         // 打开搜索框
         searchButton.addEventListener('click', () => {
             searchModal.classList.remove('hidden');
-            searchInput.focus();
+            setTimeout(() => {
+                searchModalContent.classList.remove('scale-95', 'opacity-0');
+                searchInput.focus();
+            }, 10);
         });
 
         // 关闭搜索框
-        closeSearch.addEventListener('click', () => {
-            searchModal.classList.add('hidden');
-            searchInput.value = '';
-            searchResults.innerHTML = '';
-        });
+        function closeSearchModal() {
+            searchModalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                searchModal.classList.add('hidden');
+                searchInput.value = '';
+                searchResults.innerHTML = '';
+            }, 300);
+        }
+
+        closeSearch.addEventListener('click', closeSearchModal);
 
         // 点击模态框外部关闭
         searchModal.addEventListener('click', (e) => {
             if (e.target === searchModal) {
-                searchModal.classList.add('hidden');
-                searchInput.value = '';
-                searchResults.innerHTML = '';
+                closeSearchModal();
             }
         });
 
         // 搜索功能实现
+        let searchTimeout;
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
-            if (searchTerm.length < 2) {
-                searchResults.innerHTML = '';
-                return;
-            }
+            
+            // 清除之前的定时器
+            clearTimeout(searchTimeout);
+            
+            // 设置新的定时器，实现防抖
+            searchTimeout = setTimeout(() => {
+                if (searchTerm.length >= 2) {
+                    performSearch(searchTerm);
+                } else {
+                    searchResults.innerHTML = '';
+                }
+            }, 300);
+        });
 
+        // 执行搜索
+        function performSearch(searchTerm) {
             // 获取所有可搜索的内容
             const sections = document.querySelectorAll('section');
             let results = [];
@@ -941,10 +1000,13 @@
                     const matches = text.match(new RegExp(searchTerm, 'gi'));
                     const matchCount = matches ? matches.length : 0;
                     
+                    // 提取包含搜索词的上下文
+                    const context = extractContext(text, searchTerm);
+                    
                     results.push({
                         id: sectionId,
                         title: sectionTitle,
-                        text: text.substring(0, 200) + '...',
+                        context: context,
                         matchCount: matchCount
                     });
                 }
@@ -956,16 +1018,49 @@
             // 显示搜索结果
             if (results.length > 0) {
                 searchResults.innerHTML = results.map(result => `
-                    <div class="mb-4 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer" onclick="scrollToSection('${result.id}')">
+                    <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors" onclick="scrollToSection('${result.id}')">
                         <h3 class="text-lg font-semibold text-primary dark:text-blue-400">${result.title}</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mt-2">${result.text}</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">匹配次数: ${result.matchCount}</p>
+                        <p class="text-gray-600 dark:text-gray-300 mt-2">${result.context}</p>
+                        <div class="flex items-center mt-2 text-sm text-gray-500 dark:text-gray-400">
+                            <i class="fas fa-search mr-1"></i>
+                            <span>${result.matchCount} 处匹配</span>
+                        </div>
                     </div>
                 `).join('');
+                
+                // 更新搜索历史
+                updateSearchHistory(searchTerm);
             } else {
-                searchResults.innerHTML = '<p class="text-gray-500 dark:text-gray-400 text-center">未找到相关结果</p>';
+                searchResults.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="fas fa-search text-4xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500 dark:text-gray-400">未找到相关结果</p>
+                        <p class="text-sm text-gray-400 dark:text-gray-500 mt-2">尝试使用不同的关键词</p>
+                    </div>
+                `;
             }
-        });
+        }
+
+        // 提取上下文
+        function extractContext(text, searchTerm) {
+            const index = text.indexOf(searchTerm);
+            const start = Math.max(0, index - 50);
+            const end = Math.min(text.length, index + searchTerm.length + 50);
+            let context = text.substring(start, end);
+            
+            // 添加省略号
+            if (start > 0) context = '...' + context;
+            if (end < text.length) context = context + '...';
+            
+            // 高亮搜索词
+            const regex = new RegExp(searchTerm, 'gi');
+            context = context.replace(regex, match => `<mark class="bg-yellow-200 dark:bg-yellow-900">${match}</mark>`);
+            
+            return context;
+        }
+
+        // 初始化搜索历史
+        renderSearchHistory();
 
         // 滚动到指定部分
         function scrollToSection(sectionId) {
@@ -992,11 +1087,95 @@
                 }
 
                 // 关闭搜索框
-                searchModal.classList.add('hidden');
-                searchInput.value = '';
-                searchResults.innerHTML = '';
+                closeSearchModal();
+
+                // 添加高亮效果
+                const searchTerm = searchInput.value.toLowerCase();
+                if (searchTerm) {
+                    // 移除之前的高亮
+                    document.querySelectorAll('.highlight-temp').forEach(el => {
+                        const parent = el.parentNode;
+                        parent.replaceChild(document.createTextNode(el.textContent), el);
+                    });
+
+                    // 遍历section中的所有文本节点
+                    const walker = document.createTreeWalker(
+                        section,
+                        NodeFilter.SHOW_TEXT,
+                        null,
+                        false
+                    );
+
+                    let node;
+                    while (node = walker.nextNode()) {
+                        const text = node.textContent;
+                        if (text.toLowerCase().includes(searchTerm)) {
+                            const regex = new RegExp(searchTerm, 'gi');
+                            let match;
+                            let lastIndex = 0;
+                            let fragment = document.createDocumentFragment();
+
+                            while ((match = regex.exec(text)) !== null) {
+                                // 添加匹配前的文本
+                                if (match.index > lastIndex) {
+                                    fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+                                }
+                                lastIndex = match.index + match[0].length;
+
+                                // 添加高亮的匹配文本
+                                const span = document.createElement('span');
+                                span.classList.add('highlight-temp');
+                                span.textContent = match[0];
+                                fragment.appendChild(span);
+                            }
+
+                            // 添加剩余的文本
+                            if (lastIndex < text.length) {
+                                fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+                            }
+
+                            node.parentNode.replaceChild(fragment, node);
+                        }
+                    }
+
+                    // 1秒后移除高亮
+                    setTimeout(() => {
+                        document.querySelectorAll('.highlight-temp').forEach(el => {
+                            const parent = el.parentNode;
+                            parent.replaceChild(document.createTextNode(el.textContent), el);
+                        });
+                    }, 5000);
+                }
             }
         }
+
+        // 添加高亮样式
+        const style = document.createElement('style');
+        style.textContent = `
+            .highlight-temp {
+                background-color: #fef08a;
+                color: #000;
+                padding: 0 2px;
+                border-radius: 2px;
+                animation: highlightFade 5s ease-out;
+                display: inline;
+            }
+            @keyframes highlightFade {
+                0% { background-color: #fef08a; }
+                70% { background-color: #fef08a; }
+                100% { background-color: transparent; }
+            }
+            .dark .highlight-temp {
+                background-color: #854d0e;
+                color: #fff;
+            }
+            .dark @keyframes highlightFade {
+                0% { background-color: #854d0e; }
+                70% { background-color: #854d0e; }
+                100% { background-color: transparent; }
+            }
+        `;
+        document.head.appendChild(style);
 
         // Theme functionality
         const themeButton = document.getElementById('theme-button');
